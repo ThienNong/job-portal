@@ -28,7 +28,7 @@ export default class Auth extends Component {
     render() {
         return (
             <View style={{flex: 1}}> 
-                { this.state.user ? <SavedJobScreen user={this.state.user}/> : <NeedLogged/>}
+                { this.state.user ? <SavedJobScreen user={this.state.user} navigation={this.props.navigation}/> : <NeedLogged/>}
             </View>
         )
     }

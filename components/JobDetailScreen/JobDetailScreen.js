@@ -9,11 +9,11 @@ import saveJob from '../../api/saveJob'
 export default class JobDetailScreen extends Component {
     constructor(props) {
         super(props),
-            this.state = {
-                user: null,
-                jobID: this.props.navigation.getParam('jobID'),
-                jobData: []
-            }
+        this.state = {
+            user: null,
+            jobID: this.props.navigation.getParam('jobID'),
+            jobData: []
+        }
     }
 
     getJobDetail(jobID) {
@@ -40,6 +40,8 @@ export default class JobDetailScreen extends Component {
                             ],
                             { cancelable: false }
                         )
+                        if (global.reloadSaveJobData)
+                            global.reloadSaveJobData()
                     }
                     else if (res == 'FAIL') {
                         Alert.alert(

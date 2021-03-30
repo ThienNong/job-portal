@@ -2,13 +2,37 @@ import React, { Component } from 'react'
 import { FlatList, StyleSheet, View, Text, TouchableOpacity, PixelRatio } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import getSaveJob from '../../api/getSaveJob'
+import global from '../global'
 
 export default class SearchResultScreen extends Component {
     constructor(props) {
         super(props)
         this.state = {
             user: this.props.user,
-            data: []
+            data: [],
+            refresh: false
+        }
+        global.reloadSaveJobData = this.getData.bind(this)
+    }
+
+    componentDidMount() {
+        this.getData()
+    }
+
+    getData() {
+        this.setState({
+            refresh: true
+        })
+        if (this.state.user != null) {
+            getSaveJob(this.state.user.email)
+            .then((responseJson) => {
+                this.setState({
+                    data: responseJson,
+                    refresh: false
+                })
+            })
+            .catch((e) => { console.log(e) })
         }
     }
 
@@ -25,6 +49,8 @@ export default class SearchResultScreen extends Component {
                     }
                     data={this.state.data}
                     keyExtractor={(item) => item.title}
+                    onRefresh={this.getData.bind(this)}
+                    refreshing={this.state.refresh}
                     ListEmptyComponent={
                         <View style={style.emptyComponent}>
                             <Text style={style.emptyComponentText}>Bạn chưa lưu công việc nào</Text>
@@ -33,7 +59,7 @@ export default class SearchResultScreen extends Component {
                     renderItem={({ item }) =>
                         <TouchableOpacity
                             style={style.jobComponent}
-                            onPress={() => this.props.navigation.navigate('JobDetail')}
+                            onPress={() => this.props.navigation.navigate('JobDetail', { jobID: item.id })}
                         >
                             <Text
                                 style={style.jobComponentTitle}
@@ -58,7 +84,7 @@ export default class SearchResultScreen extends Component {
                                         style={style.smallTextInFlatComponent}
                                         numberOfLines={1}
                                     >
-                                        {item.place}
+                                        {item.province}
                                     </Text>
                                 </View>
                                 <View style={style.textWithIcon}>
@@ -104,7 +130,8 @@ const style = StyleSheet.create({
         marginHorizontal: 10,
         textTransform: 'uppercase',
         fontWeight: 'bold',
-        fontSize: 12
+        fontSize: 12,
+        color: 'red'
     },
     jobComponent: {
         backgroundColor: '#FFF',
