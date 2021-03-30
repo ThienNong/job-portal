@@ -2,13 +2,16 @@ import React, { Component } from 'react'
 import { SafeAreaView } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import Icon2 from 'react-native-vector-icons/Entypo'
-import { Text, View, ScrollView, StyleSheet, PixelRatio, TouchableOpacity } from 'react-native'
+import { Text, View, ScrollView, StyleSheet, PixelRatio, TouchableOpacity, Alert } from 'react-native'
+import global from '../global'
+import saveJob from '../../api/saveJob'
 
 export default class JobDetailScreen extends Component {
     constructor(props) {
         super(props),
             this.state = {
-                id: '',
+                user: null,
+                jobID: this.props.navigation.getParam('jobID'),
                 jobData: []
             }
     }
@@ -16,7 +19,7 @@ export default class JobDetailScreen extends Component {
     getJobDetail(jobID) {
         fetch("http://192.168.20.102:8080/WebService/getJobDetail.php?id=" + jobID + "")
             .then((response) => response.json())
-            .then((responseJson) => { 
+            .then((responseJson) => {
                 this.setState({
                     jobData: responseJson
                 })
@@ -24,9 +27,59 @@ export default class JobDetailScreen extends Component {
             .catch((e) => { console.log(e) })
     }
 
+    saveJob() {
+        if (this.state.user !== null) {
+            saveJob(this.state.user.email, this.state.jobID)
+                .then(res => {
+                    if (res == 'SUCCESS') {
+                        Alert.alert(
+                            'Thông báo',
+                            'Lưu thành công',
+                            [
+                                { text: 'OK' }
+                            ],
+                            { cancelable: false }
+                        )
+                    }
+                    else if (res == 'FAIL') {
+                        Alert.alert(
+                            'Thông báo',
+                            'Bạn đã lưu công việc này rồi',
+                            [
+                                { text: 'OK' }
+                            ],
+                            { cancelable: false }
+                        )
+                    }
+                })
+                .catch(err => {
+                    Alert.alert(
+                        'Thông báo',
+                        'Không thể lưu công việc này: ' + err,
+                        [
+                            { text: 'OK' }
+                        ],
+                        { cancelable: false }
+                    )
+                })
+        }
+        else {
+            Alert.alert(
+                'Thông báo',
+                'Bạn chưa đăng nhập. Vui lòng đăng nhập để sử dụng chức năng này!',
+                [
+                    { text: 'OK' }
+                ],
+                { cancelable: false }
+            )
+        }
+    }
+
     componentDidMount() {
-        var jobID = this.props.navigation.getParam('jobID')
-        this.getJobDetail(jobID)
+        this.setState({
+            user: global.user
+        })
+        this.getJobDetail(this.state.jobID)
     }
 
     render() {
@@ -118,6 +171,7 @@ export default class JobDetailScreen extends Component {
                             </TouchableOpacity>
                             <TouchableOpacity
                                 style={style.saveJobButton}
+                                onPress={this.saveJob.bind(this)}
                             >
                                 <Text style={style.saveJobButtonText}>
                                     Lưu công việc này
