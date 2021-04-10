@@ -1,6 +1,6 @@
 const checkLogin = (token) => {
     return (
-        fetch('http://192.168.20.102:8080/WebService/check_login.php',
+        fetch('https://jobportalthiennong.000webhostapp.com/webservice/check_login.php',
             {
                 method: 'POST',
                 headers: {

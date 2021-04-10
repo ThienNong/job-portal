@@ -17,7 +17,7 @@ export default class JobDetailScreen extends Component {
     }
 
     getJobDetail(jobID) {
-        fetch("http://192.168.20.102:8080/WebService/getJobDetail.php?id=" + jobID + "")
+        fetch("https://jobportalthiennong.000webhostapp.com/webservice/getJobDetail.php?id=" + jobID + "")
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
@@ -168,7 +168,7 @@ export default class JobDetailScreen extends Component {
                                 style={style.submitButton}
                             >
                                 <Text style={style.submitButtonText}>
-                                    Nộp hồ sơ
+                                    Ứng tuyển ngay
                                 </Text>
                             </TouchableOpacity>
                             <TouchableOpacity

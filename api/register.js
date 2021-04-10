@@ -1,6 +1,6 @@
 const register = (email, password, name, phone) => {
     return (
-        fetch('http://192.168.20.102:8080/WebService/register.php',
+        fetch('https://jobportalthiennong.000webhostapp.com/webservice/register.php',
             {
                 method: 'POST',
                 headers: {

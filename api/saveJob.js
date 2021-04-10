@@ -1,6 +1,6 @@
 const saveJob = (email, idJob) => {
     return (
-        fetch('http://192.168.20.102:8080/WebService/saveJob.php',
+        fetch('https://jobportalthiennong.000webhostapp.com/webservice/saveJob.php',
             {
                 method: 'POST',
                 headers: {

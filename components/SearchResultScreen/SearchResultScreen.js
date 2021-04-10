@@ -20,7 +20,7 @@ export default class SearchResultScreen extends Component {
         const searchText = this.props.navigation.getParam('SearchText', '')
         const province = this.props.navigation.getParam('province', '')
         const carrier = this.props.navigation.getParam('carrier', '')
-        fetch("http://192.168.20.102:8080/WebService/searchJob.php?jobTitle=" + searchText + "&province=" + province + "&typejob=" + carrier + "")
+        fetch("https://jobportalthiennong.000webhostapp.com/webservice/searchJob.php?jobTitle=" + searchText + "&province=" + province + "&typejob=" + carrier + "")
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({

@@ -23,7 +23,7 @@ export default class HomeScreen extends Component {
     }
 
     getProvince() {
-        fetch('http://192.168.20.102:8080/WebService/getProvince.php')
+        fetch('https://jobportalthiennong.000webhostapp.com/webservice/getProvince.php')
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
@@ -37,7 +37,7 @@ export default class HomeScreen extends Component {
         this.setState({
             refresh: true
         })
-        fetch('http://192.168.20.102:8080/WebService/getNewJobs.php')
+        fetch('https://jobportalthiennong.000webhostapp.com/webservice/getNewJobs.php')
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
@@ -49,7 +49,7 @@ export default class HomeScreen extends Component {
     }
 
     getCarrier() {
-        fetch("http://192.168.20.102:8080/WebService/getCarrier.php")
+        fetch("https://jobportalthiennong.000webhostapp.com/webservice/getCarrier.php")
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
