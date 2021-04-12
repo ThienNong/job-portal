@@ -76,6 +76,14 @@ const UserNavigator = createStackNavigator({
             title: "Đăng ký",
             headerTitleAlign: 'center'
         }
+    },
+    SavedJob: {
+        screen: SavedJobScreen,
+        navigationOptions: {
+            //headerShown: false,
+            title: "Công việc đã lưu",
+            headerTitleAlign: 'center'
+        }
     }
 })
 
@@ -103,7 +111,7 @@ const MyTabNavigator = createBottomTabNavigator({
             tabBarIcon: ({tintColor}) => (
                 <Icon name="user" color={tintColor} size={20}/>
             )
-        }
+        }  
     }
 },
 {

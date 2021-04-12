@@ -28,7 +28,7 @@ export default class Auth extends Component {
     render() {
         return (
             <SafeAreaView style={{flex: 1}}>
-                { this.state.user ? <User user={this.state.user} /> : <Guest navigation={this.props.navigation}/> }
+                { this.state.user ? <User user={this.state.user} navigation={this.props.navigation}/> : <Guest navigation={this.props.navigation}/> }
             </SafeAreaView>
         )
     }

@@ -8,7 +8,11 @@ export default class SearchResultScreen extends Component {
     constructor(props) {
         super(props),
             this.state = {
-                jobsList: []
+                searchText: this.props.navigation.getParam('SearchText', ''),
+                province: this.props.navigation.getParam('province', ''),
+                carrier: this.props.navigation.getParam('carrier', ''),
+                jobsList: [],
+                refresh: false
             }
     }
 
@@ -17,17 +21,17 @@ export default class SearchResultScreen extends Component {
     }
 
     getData() {
-        const searchText = this.props.navigation.getParam('SearchText', '')
-        const province = this.props.navigation.getParam('province', '')
-        const carrier = this.props.navigation.getParam('carrier', '')
-        fetch("https://jobportalthiennong.000webhostapp.com/webservice/searchJob.php?jobTitle=" + searchText + "&province=" + province + "&typejob=" + carrier + "")
+        this.setState({
+            refresh: true
+        })
+        fetch("https://jobportalthiennong.000webhostapp.com/webservice/searchJob.php?jobTitle=" + this.state.searchText + "&province=" + this.state.province + "&typejob=" + this.state.carrier + "")
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
-                    jobsList: responseJson
+                    jobsList: responseJson,
+                    refresh: false
                 })
             })
-            .catch((e) => { console.log(e) })
     }
 
     render() {
@@ -41,6 +45,13 @@ export default class SearchResultScreen extends Component {
                             </View>
                         </View>
                     }
+                    ListEmptyComponent={
+                        <View style={style.emptyComponent}>
+                            <Text style={{fontWeight: 'bold'}}>Không có kết quả nào phù hợp với tiêu chí tìm kiếm.</Text>
+                        </View>
+                    }
+                    refreshing={this.state.refresh}
+                    onRefresh={this.getData.bind(this)}
                     data={this.state.jobsList}
                     keyExtractor={(item) => item.title}
                     renderItem={({ item }) =>
@@ -153,5 +164,13 @@ const style = StyleSheet.create({
         marginTop: 10,
         borderWidth: 1 / PixelRatio.get(),
         borderColor: 'gray',
+    },
+    emptyComponent: {
+        padding: 20,
+        alignItems: 'center',
+        justifyContent: 'center',
+        alignContent: 'center',
+        backgroundColor: 'white',
+        borderBottomWidth: 1 / PixelRatio.get()
     }
 })
