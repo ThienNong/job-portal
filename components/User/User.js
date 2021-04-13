@@ -3,6 +3,7 @@ import { SafeAreaView, StyleSheet, Text, TouchableOpacity, View, Alert, PixelRat
 import global from '../global'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import saveToken from '../../api/saveToken'
+import RNExitApp from 'react-native-exit-app'
 
 export default class User extends Component {
     constructor(props) {
@@ -121,6 +122,35 @@ export default class User extends Component {
                             />
                             <Text style={style.buttonText2}>
                                 Phiên bản phần mềm: 1.0
+                        </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                            style={style.button}
+                            onPress={() => {
+                                Alert.alert(
+                                    "Thông báo",
+                                    "Bạn có muốn thoát ứng dụng?",
+                                    [                                        
+                                        {
+                                            text: "Có",
+                                            onPress: () => { RNExitApp.exitApp() }
+                                        },
+                                        {
+                                            text: "Không",
+                                        }
+                                    ],
+                                    {
+                                        cancelable: true,
+                                    }
+                                )
+                            }}
+                        >
+                            <Icon
+                                name="power-off"
+                                size={18}
+                            />
+                            <Text style={style.buttonText2}>
+                                Thoát ứng dụng
                         </Text>
                         </TouchableOpacity>
                     </View>
