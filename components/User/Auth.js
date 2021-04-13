@@ -13,7 +13,7 @@ export default class Auth extends Component {
         global.reloadUserMenu = this.reload.bind(this)
     }
 
-    _isMounted = false;
+    _isMounted = false
 
     reload() {
         if (this._isMounted == true)

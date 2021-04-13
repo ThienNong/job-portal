@@ -22,7 +22,7 @@ export default class HomeScreen extends Component {
         }
     }
 
-    _isMounted = false;
+    _isMounted = false
 
     getProvince() {
         fetch('https://jobportalthiennong.000webhostapp.com/webservice/getProvince.php')
