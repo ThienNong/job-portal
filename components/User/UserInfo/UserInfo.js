@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { PixelRatio, SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native'
+import { SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import RadioForm, { RadioButton, RadioButtonInput, RadioButtonLabel } from 'react-native-simple-radio-button'
+import RadioForm from 'react-native-simple-radio-button'
 
 export default class UserInfo extends Component {
 
@@ -118,7 +118,6 @@ const style = StyleSheet.create({
         flexDirection: 'row',
         marginTop: 10,
         backgroundColor: '#EA1B21',
-        borderWidth: 1 / PixelRatio.get(),
         borderRadius: 3,
         alignContent: 'center',
         justifyContent: 'center',
@@ -128,8 +127,7 @@ const style = StyleSheet.create({
         flexDirection: 'row',
         marginTop: 10,
         marginBottom: 20,
-        backgroundColor: 'green',
-        borderWidth: 1 / PixelRatio.get(),
+        backgroundColor: '#2D82C4',
         borderRadius: 3,
         alignContent: 'center',
         justifyContent: 'center',

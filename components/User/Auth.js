@@ -10,13 +10,14 @@ export default class Auth extends Component {
         this.state = {
             user: null
         }
+        this._isMounted = true
         global.reloadUserMenu = this.reload.bind(this)
     }
 
     _isMounted = false
 
     reload() {
-        if (this._isMounted == true)
+        if (this._isMounted === true)
         {
             this.setState({
                 user: global.user
@@ -25,12 +26,12 @@ export default class Auth extends Component {
     }
 
     UNSAFE_componentWillUnmount() {
-        this._isMounted = false;
+        this._isMounted = false
     }
 
     componentDidMount() {
         this._isMounted = true
-        if (this._isMounted == true) {
+        if (this._isMounted === true) {
             this.setState({
                 user: global.user
             })
