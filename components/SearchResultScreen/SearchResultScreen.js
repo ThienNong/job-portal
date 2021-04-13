@@ -47,7 +47,7 @@ export default class SearchResultScreen extends Component {
                     }
                     ListEmptyComponent={
                         <View style={style.emptyComponent}>
-                            <Text style={{fontWeight: 'bold'}}>Không có kết quả nào phù hợp với tiêu chí tìm kiếm.</Text>
+                            {this.state.refresh == false ? <Text style={{fontWeight: 'bold'}}>Không có kết quả nào phù hợp với tiêu chí tìm kiếm.</Text> : <Text style={{fontWeight: 'bold'}}>Đang tải...</Text>}
                         </View>
                     }
                     refreshing={this.state.refresh}

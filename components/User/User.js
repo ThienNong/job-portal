@@ -88,6 +88,7 @@ export default class User extends Component {
                         </TouchableOpacity>
                         <TouchableOpacity
                             style={style.button}
+                            onPress={() => this.props.navigation.navigate('ApplyJob')}
                         >
                             <Icon
                                 name="th-list"

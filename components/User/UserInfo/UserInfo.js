@@ -29,6 +29,7 @@ export default class UserInfo extends Component {
                         initial={0}
                         formHorizontal={true}
                         onPress={(value) => {}}
+                        buttonSize={15}
                         selectedButtonColor={'#000'}
                         buttonColor={'#000'}
                         labelColor={'#000'}
@@ -71,6 +72,18 @@ export default class UserInfo extends Component {
                             Cập nhật thông tin
                         </Text>
                     </TouchableOpacity>
+                    <TouchableOpacity
+                        style={style.button2}
+                    >
+                        <Icon
+                            name="repeat"
+                            size={18}
+                            color="white"
+                        />
+                        <Text style={style.buttonText}>
+                            Đổi mật khẩu
+                        </Text>
+                    </TouchableOpacity>
                 </ScrollView>
             </SafeAreaView>
         )
@@ -104,8 +117,18 @@ const style = StyleSheet.create({
     button: {
         flexDirection: 'row',
         marginTop: 10,
-        marginBottom: 20,
         backgroundColor: '#EA1B21',
+        borderWidth: 1 / PixelRatio.get(),
+        borderRadius: 3,
+        alignContent: 'center',
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    button2: {
+        flexDirection: 'row',
+        marginTop: 10,
+        marginBottom: 20,
+        backgroundColor: 'green',
         borderWidth: 1 / PixelRatio.get(),
         borderRadius: 3,
         alignContent: 'center',

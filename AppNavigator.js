@@ -12,6 +12,7 @@ import JobDetailScreen from './components/JobDetailScreen/JobDetailScreen'
 import SavedJobScreen from './components/SavedJobs/Auth'
 import User from './components/User/Auth'
 import UserInfo from './components/User/UserInfo/UserInfo'
+import ApplyJob from './components/ApplyJob/ApplyJob'
 
 const StackHome = createStackNavigator({
     HomeScreen: {
@@ -91,6 +92,14 @@ const UserNavigator = createStackNavigator({
         navigationOptions: {
             //headerShown: false,
             title: "Thông tin cá nhân",
+            headerTitleAlign: 'center'
+        }
+    },
+    ApplyJob: {
+        screen: ApplyJob,
+        navigationOptions: {
+            //headerShown: false,
+            title: "Công việc đã ứng tuyển",
             headerTitleAlign: 'center'
         }
     }

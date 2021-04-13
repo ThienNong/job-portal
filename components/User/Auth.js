@@ -13,16 +13,28 @@ export default class Auth extends Component {
         global.reloadUserMenu = this.reload.bind(this)
     }
 
+    _isMounted = false;
+
     reload() {
-        this.setState({
-            user: global.user
-        })
+        if (this._isMounted == true)
+        {
+            this.setState({
+                user: global.user
+            })
+        }
+    }
+
+    UNSAFE_componentWillUnmount() {
+        this._isMounted = false;
     }
 
     componentDidMount() {
-        this.setState({
-            user: global.user
-        })
+        this._isMounted = true
+        if (this._isMounted == true) {
+            this.setState({
+                user: global.user
+            })
+        }
     }
 
     render() {

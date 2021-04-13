@@ -22,13 +22,18 @@ export default class HomeScreen extends Component {
         }
     }
 
+    _isMounted = false;
+
     getProvince() {
         fetch('https://jobportalthiennong.000webhostapp.com/webservice/getProvince.php')
             .then((response) => response.json())
             .then((responseJson) => {
-                this.setState({
-                    provinceList: responseJson
-                })
+                if (this._isMounted)
+                {
+                    this.setState({
+                        provinceList: responseJson
+                    })
+                }
             })
     }
 
@@ -39,10 +44,13 @@ export default class HomeScreen extends Component {
         fetch('https://jobportalthiennong.000webhostapp.com/webservice/getNewJobs.php')
             .then((response) => response.json())
             .then((responseJson) => {
-                this.setState({
-                    jobsList: responseJson,
-                    refresh: false
-                })
+                if (this._isMounted)
+                {
+                    this.setState({
+                        jobsList: responseJson,
+                        refresh: false
+                    })
+                }
             })
     }
 
@@ -50,13 +58,20 @@ export default class HomeScreen extends Component {
         fetch("https://jobportalthiennong.000webhostapp.com/webservice/getCarrier.php")
             .then((response) => response.json())
             .then((responseJson) => {
-                this.setState({
-                    carierList: responseJson
-                })
+                if (this._isMounted) {
+                    this.setState({
+                        carierList: responseJson
+                    })
+                }
             })
     }
 
+    UNSAFE_componentWillUnmount() {
+        this._isMounted = false;
+    } 
+
     componentDidMount() {
+        this._isMounted = true;
         getToken()
             .then(token => checkLogin(token))
             .then(res => {

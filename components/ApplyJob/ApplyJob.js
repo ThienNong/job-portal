@@ -2,39 +2,18 @@ import React, { Component } from 'react'
 import { FlatList, StyleSheet, View, Text, TouchableOpacity, PixelRatio } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
-import getSaveJob from '../../api/getSaveJob'
-import global from '../global'
 
-export default class SearchResultScreen extends Component {
+export default class ApplyJob extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            user: this.props.user,
             data: [],
             refresh: false
         }
-        global.reloadSaveJobData = this.getData.bind(this)
     }
 
     componentDidMount() {
-        this.getData()
-        isLoaded = true
-    }
-
-    getData() {
-        this.setState({
-            refresh: true
-        })
-        if (this.state.user != null) {
-            getSaveJob(this.state.user.email)
-                .then((responseJson) => {
-                    this.setState({
-                        data: responseJson,
-                        refresh: false
-                    })
-                })
-                .catch((e) => { console.log(e) })
-        }
+        //this.getData()
     }
 
     render() {
@@ -44,17 +23,17 @@ export default class SearchResultScreen extends Component {
                     ListHeaderComponent={
                         <View style={style.newJobsContainer}>
                             <View style={style.newJobsHeader}>
-                                <Text style={style.newJobsHeaderText}>Công việc đã lưu: ({this.state.data.length})</Text>
+                                <Text style={style.newJobsHeaderText}>Công việc đã ứng tuyển: ({this.state.data.length})</Text>
                             </View>
                         </View>
                     }
                     data={this.state.data}
                     keyExtractor={(item) => item.title}
-                    onRefresh={this.getData.bind(this)}
+                    onRefresh={() => {}}
                     refreshing={this.state.refresh}
                     ListEmptyComponent={
                         <View style={style.emptyComponent}>
-                            {this.state.refresh == false ? <Text style={style.emptyComponentText}>Bạn chưa lưu công việc nào</Text>  : <Text style={style.emptyComponentText}>Đang tải...</Text>}
+                            {this.state.refresh == false ? <Text style={style.emptyComponentText}>Bạn chưa ứng tuyển công việc nào</Text>  : <Text style={style.emptyComponentText}>Đang tải...</Text>}
                         </View>
                     }
                     renderItem={({ item }) =>
