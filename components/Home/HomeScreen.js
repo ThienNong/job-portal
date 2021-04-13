@@ -30,7 +30,6 @@ export default class HomeScreen extends Component {
                     provinceList: responseJson
                 })
             })
-            .catch((e) => { console.log(e) })
     }
 
     getNewJob() {
@@ -45,7 +44,6 @@ export default class HomeScreen extends Component {
                     refresh: false
                 })
             })
-            .catch((e) => { console.log(e) })
     }
 
     getCarrier() {
@@ -56,7 +54,6 @@ export default class HomeScreen extends Component {
                     carierList: responseJson
                 })
             })
-            .catch((e) => { console.log(e) })
     }
 
     componentDidMount() {

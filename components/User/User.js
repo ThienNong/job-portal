@@ -50,24 +50,14 @@ export default class User extends Component {
                         <Text style={style.buttonListHeaderText}>Hồ sơ của bạn</Text>
                         <TouchableOpacity
                             style={style.button}
-                        >
-                            <Icon
-                                name="user"
-                                size={18}
-                            />
-                            <Text style={style.buttonText2}>
-                                Thông tin cá nhân
-                         </Text>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={style.button}
+                            onPress={() => this.props.navigation.navigate('UserInfo')}
                         >
                             <Icon
                                 name="address-book"
                                 size={18}
                             />
                             <Text style={style.buttonText2}>
-                                Thông tin liên hệ
+                                Thông tin cá nhân
                          </Text>
                         </TouchableOpacity>
                         <TouchableOpacity
