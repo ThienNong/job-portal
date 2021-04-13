@@ -71,7 +71,7 @@ export default class HomeScreen extends Component {
     } 
 
     componentDidMount() {
-        this._isMounted = true;
+        this._isMounted = true
         getToken()
             .then(token => checkLogin(token))
             .then(res => {
