@@ -6,14 +6,14 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 export default class SearchResultScreen extends Component {
 
     constructor(props) {
-        super(props),
-            this.state = {
-                searchText: this.props.navigation.getParam('SearchText', ''),
-                province: this.props.navigation.getParam('province', ''),
-                carrier: this.props.navigation.getParam('carrier', ''),
-                jobsList: [],
-                refresh: false
-            }
+        super(props)
+        this.state = {
+            searchText: this.props.navigation.getParam('SearchText', ''),
+            province: this.props.navigation.getParam('province', ''),
+            carrier: this.props.navigation.getParam('carrier', ''),
+            jobsList: [],
+            refresh: false
+        }
     }
 
     componentDidMount() {
@@ -24,7 +24,8 @@ export default class SearchResultScreen extends Component {
         this.setState({
             refresh: true
         })
-        fetch("https://jobportalthiennong.000webhostapp.com/webservice/searchJob.php?jobTitle=" + this.state.searchText + "&province=" + this.state.province + "&typejob=" + this.state.carrier + "")
+        fetch("https://jobportalthiennong.000webhostapp.com/webservice/searchJob.php?jobTitle=" +
+            this.state.searchText + "&province=" + this.state.province + "&typejob=" + this.state.carrier + "")
             .then((response) => response.json())
             .then((responseJson) => {
                 this.setState({
@@ -47,7 +48,7 @@ export default class SearchResultScreen extends Component {
                     }
                     ListEmptyComponent={
                         <View style={style.emptyComponent}>
-                            {this.state.refresh == false ? <Text style={{fontWeight: 'bold'}}>Không có kết quả nào phù hợp với tiêu chí tìm kiếm.</Text> : <Text style={{fontWeight: 'bold'}}>Đang tải...</Text>}
+                            {this.state.refresh == false ? <Text style={{ fontWeight: 'bold' }}>Không có kết quả nào phù hợp với tiêu chí tìm kiếm.</Text> : <Text style={{ fontWeight: 'bold' }}>Đang tải...</Text>}
                         </View>
                     }
                     refreshing={this.state.refresh}

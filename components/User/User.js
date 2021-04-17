@@ -13,6 +13,8 @@ export default class User extends Component {
         }
     }
 
+    _isMounted = false
+
     signOut() {
         global.user = null
         if (global.reloadSavedJob)

@@ -3,6 +3,7 @@ import { SafeAreaView } from 'react-native'
 import global from '../global'
 import Guest from './Guest'
 import User from './User'
+import getUserData from '../../api/getUserInfo'
 
 export default class Auth extends Component {
     constructor(props) {
@@ -10,7 +11,6 @@ export default class Auth extends Component {
         this.state = {
             user: null
         }
-        this._isMounted = true
         global.reloadUserMenu = this.reload.bind(this)
     }
 

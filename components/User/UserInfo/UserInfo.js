@@ -2,13 +2,59 @@ import React, { Component } from 'react'
 import { SafeAreaView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import RadioForm from 'react-native-simple-radio-button'
+import getUserInfo from '../../../api/setUserInfo'
 
 export default class UserInfo extends Component {
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            name: "",
+            sex: "",
+            address: "",
+            phone: "",
+            currentJob: "",
+            other: ""
+        }
+    }
 
     radio_props = [
         { label: 'param1', value: 0 },
         { label: 'param2', value: 1 }
     ]
+
+    getUserData() {
+        getUserInfo()
+            .then(res => this.setState ({ userData: res }))
+    }
+
+    setUserData() {
+        const { name, sex, address, phone, currentJob, other } = this.state
+        setUserInfo(name, sex, address, phone, currentJob, other)
+            .then(res => {
+                if (res == 'SUCCESS') {
+                    Alert.alert(
+                        'Thông báo',
+                        'Cập nhật thông tin thành công',
+                        [
+                            { text: 'OK' }
+                        ],
+                        { cancelable: false }
+                    )
+                    this.props.navigation.pop()
+                }
+                else if (res == 'FAIL') {
+                    Alert.alert(
+                        'Thông báo',
+                        'Không thể cập nhật thông tin!',
+                        [
+                            { text: 'OK' }
+                        ],
+                        { cancelable: false }
+                    )
+                }
+            })
+    }
 
     render() {
         return (
@@ -25,10 +71,10 @@ export default class UserInfo extends Component {
                             { label: 'Nam', value: 'Nam' },
                             { label: 'Nữ', value: 'Nữ' }
                         ]}
-                        labelStyle={{marginRight: 10}}
+                        labelStyle={{ marginRight: 10 }}
                         initial={0}
                         formHorizontal={true}
-                        onPress={(value) => {}}
+                        onPress={(value) => { }}
                         buttonSize={15}
                         selectedButtonColor={'#000'}
                         buttonColor={'#000'}

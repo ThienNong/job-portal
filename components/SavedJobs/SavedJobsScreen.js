@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { FlatList, StyleSheet, View, Text, TouchableOpacity, PixelRatio } from 'react-native'
+import { FlatList, StyleSheet, View, Text, TouchableOpacity, PixelRatio, Alert } from 'react-native'
 import { SafeAreaView } from 'react-navigation'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import getSaveJob from '../../api/getSaveJob'
+import deleteApplyJob from '../../api/deleteSaveJob'
 import global from '../global'
 
 export default class SearchResultScreen extends Component {
@@ -18,7 +19,6 @@ export default class SearchResultScreen extends Component {
 
     componentDidMount() {
         this.getData()
-        isLoaded = true
     }
 
     getData() {
@@ -35,6 +35,41 @@ export default class SearchResultScreen extends Component {
                 })
                 .catch((e) => { console.log(e) })
         }
+    }
+
+    deleteJob(jobID) {
+        if (this.state.user !== null) {
+            deleteApplyJob(this.state.user.email, jobID)
+                .catch(err => {
+                    Alert.alert(
+                        'Thông báo',
+                        'Không thể xoá công việc này: ' + err,
+                        [
+                            { text: 'OK' }
+                        ],
+                        { cancelable: false }
+                    )
+                })
+            this.getData()
+        }
+    }
+
+    alertDelete(jobID) {
+        Alert.alert(
+            'Thông báo',
+            'Bạn có muốn xoá công việc này khỏi danh sách công việc đã lưu?',
+            [
+                {
+                    text: 'Có',
+                    onPress: () => this.deleteJob(jobID)
+                },
+                {
+                    text: "Không",
+                    style: "cancel"
+                }
+            ],
+            { cancelable: false }
+        )
     }
 
     render() {
@@ -54,7 +89,7 @@ export default class SearchResultScreen extends Component {
                     refreshing={this.state.refresh}
                     ListEmptyComponent={
                         <View style={style.emptyComponent}>
-                            {this.state.refresh == false ? <Text style={style.emptyComponentText}>Bạn chưa lưu công việc nào</Text>  : <Text style={style.emptyComponentText}>Đang tải...</Text>}
+                            {this.state.refresh == false ? <Text style={style.emptyComponentText}>Bạn chưa lưu công việc nào</Text> : <Text style={style.emptyComponentText}>Đang tải...</Text>}
                         </View>
                     }
                     renderItem={({ item }) =>
@@ -104,7 +139,10 @@ export default class SearchResultScreen extends Component {
                                     </View>
                                 </View>
                             </View>
-                            <TouchableOpacity style={{flex: 1, alignItems: 'flex-end', justifyContent: 'center', marginLeft: 10 }}>
+                            <TouchableOpacity
+                                style={{ flex: 1, alignItems: 'flex-end', justifyContent: 'center', marginLeft: 10 }}
+                                onPress={() => this.alertDelete(item.id)}
+                            >
                                 <Icon
                                     name="trash"
                                     size={25}

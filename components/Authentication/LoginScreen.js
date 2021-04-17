@@ -14,28 +14,64 @@ export default class LoginScreen extends Component {
         }
     }
 
+    checkData() {
+        const { email, password } = this.state
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+        if (email.trim().length == 0) {
+            alert("Email không được bỏ trống!")
+            return false
+        }
+        if (email.trim().length > 150) {
+            alert("Độ dài email quá lớn!")
+            return false
+        }
+        if (password.trim().length > 32) {
+            alert("Độ dài mật khẩu không được vượt quá 32 ký tự!")
+            return false
+        }
+        if (password.trim().length == 0) {
+            alert("Mật khẩu không được bỏ trống!")
+            return false
+        }
+        if (email.length < 6) {
+            alert("Email không được nhỏ hơn 6 ký tự!")
+            return false
+        }
+        if (password.length < 6) {
+            alert("Mật khẩu không được nhỏ hơn 6 ký tự!")
+            return false
+        }
+        if (!reg.test(email)) {
+            alert("Định dạng email không đúng")
+            return false
+        }
+        return true
+    }
+
     login() {
-        const { email, password } = this.state;
-        signIn(email, password)
-            .then(res => {
-                global.user = res.user
-                if (global.reloadSavedJob)
-                    global.reloadSavedJob()
-                if (global.reloadUserMenu)
-                    global.reloadUserMenu()
-                saveToken(res.token)
-                Alert.alert(
-                    'Thông báo',
-                    'Đăng nhập thành công',
-                    [
-                        { text: 'OK', onPress: () => this.props.navigation.pop() }
-                    ],
-                    { cancelable: false }
+        if (this.checkData()) {
+            const { email, password } = this.state
+            signIn(email, password)
+                .then(res => {
+                    global.user = res.user
+                    if (global.reloadSavedJob)
+                        global.reloadSavedJob()
+                    if (global.reloadUserMenu)
+                        global.reloadUserMenu()
+                    saveToken(res.token)
+                    Alert.alert(
+                        'Thông báo',
+                        'Đăng nhập thành công',
+                        [
+                            { text: 'OK', onPress: () => this.props.navigation.pop() }
+                        ],
+                        { cancelable: false }
+                    )
+                })
+                .catch(
+                    err => (alert('Đăng nhập thất bại!'))
                 )
-            })
-            .catch(err => {
-                alert('Đăng nhập thất bại: ' + err)
-            })
+        }
     }
 
     render() {

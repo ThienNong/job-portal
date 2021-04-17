@@ -5,10 +5,11 @@ import Icon2 from 'react-native-vector-icons/Entypo'
 import { Text, View, ScrollView, StyleSheet, PixelRatio, TouchableOpacity, Alert } from 'react-native'
 import global from '../global'
 import saveJob from '../../api/saveJob'
+import ApplyJob from '../../api/applyJob'
 
 export default class JobDetailScreen extends Component {
     constructor(props) {
-        super(props),
+        super(props)
         this.state = {
             user: null,
             jobID: this.props.navigation.getParam('jobID'),
@@ -25,6 +26,56 @@ export default class JobDetailScreen extends Component {
                 })
             })
             .catch((e) => { console.log(e) })
+    }
+
+    applyJob() {
+        if (this.state.user !== null) {
+            ApplyJob(this.state.user.email, this.state.jobID)
+                .then(res => {
+                    if (res == 'SUCCESS') {
+                        Alert.alert(
+                            'Thông báo',
+                            'Ứng tuyển công việc thành công',
+                            [
+                                { text: 'OK' }
+                            ],
+                            { cancelable: false }
+                        )
+                        if (global.reloadApplyJobData)
+                            global.reloadApplyJobData()
+                    }
+                    else if (res == 'FAIL') {
+                        Alert.alert(
+                            'Thông báo',
+                            'Bạn đã ứng tuyển công việc này rồi',
+                            [
+                                { text: 'OK' }
+                            ],
+                            { cancelable: false }
+                        )
+                    }
+                })
+                .catch(err => {
+                    Alert.alert(
+                        'Thông báo',
+                        'Không thể ứng tuyển công việc này: ' + err,
+                        [
+                            { text: 'OK' }
+                        ],
+                        { cancelable: false }
+                    )
+                })
+        }
+        else {
+            Alert.alert(
+                'Thông báo',
+                'Bạn chưa đăng nhập. Vui lòng đăng nhập để sử dụng chức năng này!',
+                [
+                    { text: 'OK' }
+                ],
+                { cancelable: false }
+            )
+        }
     }
 
     saveJob() {
@@ -166,6 +217,7 @@ export default class JobDetailScreen extends Component {
                             <View style={style.underline} />
                             <TouchableOpacity
                                 style={style.submitButton}
+                                onPress={this.applyJob.bind(this)}
                             >
                                 <Text style={style.submitButtonText}>
                                     Ứng tuyển ngay

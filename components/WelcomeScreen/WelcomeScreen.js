@@ -7,7 +7,7 @@ export default class WelcomeScreen extends Component {
     componentDidMount() {
         setTimeout(() => {
             this.props.navigation.replace('MyTabNavigator')
-        }, 5000);
+        }, 5000)
     }
 
     render() {

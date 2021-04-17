@@ -6,7 +6,7 @@ import register from '../../api/register'
 
 export default class WelcomeScreen extends Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             email: '',
@@ -15,18 +15,70 @@ export default class WelcomeScreen extends Component {
             name: '',
             phone: ''
         }
-    }   
+    }
+
+    checkData() {
+        const { email, password, repassword, name, phone } = this.state
+        let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/
+        if (email.trim().length == 0) {
+            alert("Email không được bỏ trống!")
+            return false
+        }
+        if (email.trim().length > 150) {
+            alert("Độ dài email quá lớn!")
+            return false
+        }
+        if (password.trim().length > 32) {
+            alert("Độ dài mật khẩu không được vượt quá 32 ký tự!")
+            return false
+        }
+        if (password.trim().length == 0) {
+            alert("Mật khẩu không được bỏ trống!")
+            return false
+        }
+        if (email.length < 6) {
+            alert("Email không được nhỏ hơn 6 ký tự!")
+            return false
+        }
+        if (password.length < 6) {
+            alert("Mật khẩu không được nhỏ hơn 6 ký tự!")
+            return false
+        }
+        if (!reg.test(email)) {
+            alert("Định dạng email không đúng!")
+            return false
+        }
+        if (password !== repassword) {
+            alert("Xác nhận lại mật khẩu không đúng!")
+            return false
+        }
+        if (name.trim().length == 0) {
+            alert("Bạn chưa nhập họ và tên!")
+            return false
+        }
+        if (phone.trim().length == 0) {
+            alert("Bạn chưa nhập số điện thoại!")
+            return false
+        }
+        if (phone.trim().length != 11 && phone.trim().length != 10) {
+            alert("Số điện thoại không hợp lệ")
+            return false
+        }
+        return true
+    }
 
     registerUser() {
-        const { email, password, name, phone } = this.state;
-        register(email, password, name, phone).then(res => {
-            if (res === 'SUCCESS') {
-                this.onSuccess()
-            }
-            else {
-                this.onFail();
-            }
-        })
+        if (this.checkData()) {
+            const { email, password, name, phone } = this.state
+            register(email, password, name, phone).then(res => {
+                if (res === 'SUCCESS') {
+                    this.onSuccess()
+                }
+                else {
+                    this.onFail();
+                }
+            })
+        }
     }
 
     onSuccess() {
@@ -34,7 +86,7 @@ export default class WelcomeScreen extends Component {
             'Thông báo',
             'Đăng ký thành công',
             [
-                { text: 'OK', onPress: () => this.props.navigation.pop()}
+                { text: 'OK', onPress: () => this.props.navigation.pop() }
             ],
             { cancelable: false }
         )
@@ -45,11 +97,10 @@ export default class WelcomeScreen extends Component {
             'Thông báo',
             'Email này đã được sử dụng',
             [
-                { text: 'OK', onPress: this.removeEmail.bind(this)}
+                { text: 'OK', onPress: this.removeEmail.bind(this) }
             ],
             { cancelable: false }
         )
-        this.props.navigation.pop()
     }
 
     removeEmail() {
