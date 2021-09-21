@@ -1,6 +1,6 @@
 const register = (email, password, name, phone) => {
     return (
-        fetch('https://jobportalthiennong.000webhostapp.com/webservice/register.php',
+        fetch('https://chovieclam.net/api/register.php',
             {
                 method: 'POST',
                 headers: {

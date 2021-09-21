@@ -1,6 +1,6 @@
 const applyJob = (email, idJob) => {
     return (
-        fetch('https://jobportalthiennong.000webhostapp.com/webservice/applyJob.php',
+        fetch('https://chovieclam.net/api/applyJob.php',
             {
                 method: 'POST',
                 headers: {

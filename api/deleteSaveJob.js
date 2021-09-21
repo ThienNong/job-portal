@@ -1,6 +1,6 @@
 const deleteSaveJob = (user, jobID) => {
     return (
-        fetch('https://jobportalthiennong.000webhostapp.com/webservice/deleteSaveJob.php',
+        fetch('https://chovieclam.net/api/deleteSaveJob.php',
             {
                 method: 'POST',
                 headers: {

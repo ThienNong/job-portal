@@ -1,16 +1,16 @@
-const saveJob = (email, idJob) => {
+const yourJobs = (jobProvider) => {
     return (
-        fetch('https://chovieclam.net/api/saveJob.php',
+        fetch('https://chovieclam.net/api/yourJobs.php',
             {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                     'Accept': 'application/json'
                 },
-                body: JSON.stringify({ email, idJob })
+                body: JSON.stringify({ jobProvider })
             })
-            .then(res => res.text())
+            .then(res => res.json())
     )
 }
 
-module.exports = saveJob
+module.exports = yourJobs

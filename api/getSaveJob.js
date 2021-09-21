@@ -1,6 +1,6 @@
 const getSaveJob = (user) => {
     return (
-        fetch('https://jobportalthiennong.000webhostapp.com/webservice/getSaveJob.php?user=' + user)
+        fetch('https://chovieclam.net/api/getSaveJob.php?user=' + user)
         .then(res => res.json())
     )
 }

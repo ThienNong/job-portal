@@ -1,6 +1,6 @@
 const getUserInfo = (user) => {
     return (
-        fetch('https://jobportalthiennong.000webhostapp.com/webservice/getUserInfo.php',
+        fetch('https://chovieclam.net/api/getUserInfo.php',
             {
                 method: 'POST',
                 headers: {

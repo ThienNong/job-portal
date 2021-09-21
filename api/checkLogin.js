@@ -1,6 +1,6 @@
 const checkLogin = (token) => {
     return (
-        fetch('https://jobportalthiennong.000webhostapp.com/webservice/check_login.php',
+        fetch('https://chovieclam.net/api/check_login.php',
             {
                 method: 'POST',
                 headers: {
