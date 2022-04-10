@@ -2,5 +2,6 @@ import { AppRegistry } from 'react-native'
 import {name as appName} from './app.json'
 import App from './App'
 
-//Test sự thay đổi trong code
+//Nông Thanh Thiên
+//CNTT K17G
 AppRegistry.registerComponent(appName, () => App);
